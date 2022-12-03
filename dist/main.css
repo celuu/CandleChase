@@ -131,3 +131,28 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+#container {
+  background-image: url(97586bad7060fc1b2309.png);
+  position: relative;
+  overflow: auto;
+  width: 800px;
+  height: 600px;
+}
+
+#candle-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#screen-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}

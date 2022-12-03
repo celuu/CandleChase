@@ -1,5 +1,12 @@
 class Candle{
-    constructor(isLit){
+    constructor(){
         this.isLit = false;
+        
+    
+
     }
+
+
+
+
 }
