@@ -1,7 +1,6 @@
 const gridWidth = 10;
 const gridHeight = 6;
 
-import Character from "./character";
 import Position from "./position";
 
 export default class Board{
@@ -15,7 +14,6 @@ export default class Board{
         this.grid = this.makeEmptyGrid();
         this.applyScreen(this.screenCtx);
         this.populateAndPlaceCandles();
-        this.character = new Character(candleCanvas);
     }
 
     applyScreen(ctx){
@@ -82,7 +80,7 @@ export default class Board{
     }
 
     populateAndPlaceCandles(){
-        let maxCount = 10;
+        let maxCount = 6;
         let placedCount = 0;
         let attempts = 0
 
