@@ -1,5 +1,8 @@
-const gridWidth = 20;
-const gridHeight = 10;
+const gridWidth = 10;
+const gridHeight = 6;
+
+import Character from "./character";
+import Position from "./position";
 
 export default class Board{
 
@@ -12,6 +15,7 @@ export default class Board{
         this.grid = this.makeEmptyGrid();
         this.applyScreen(this.screenCtx);
         this.populateAndPlaceCandles();
+        this.character = new Character(candleCanvas);
     }
 
     applyScreen(ctx){
@@ -21,51 +25,55 @@ export default class Board{
 
     removeScreen(x, y) {
         this.screenCtx.globalCompositeOperation = "destination-out";
-        this.screenCtx.shadowBlur = 20;
-        this.screenCtx.shadowColor = "white";
+        this.screenCtx.shadowBlur = 30;
+        this.screenCtx.shadowColor = "red";
 
-        this.screenCtx.beginPath();
-        this.screenCtx.arc(x, y, 20, 0, 2 * Math.PI, false);
-        this.screenCtx.fill();
-        this.screenCtx.lineWidth = 5;
-        this.screenCtx.stroke();
+        for (let i = 0; i < 5; i++) {
+            this.screenCtx.beginPath();
+            this.screenCtx.arc(x, y, 20, 0, 2 * Math.PI, false);
+            this.screenCtx.fill();
+            this.screenCtx.lineWidth = 5;
+            this.screenCtx.stroke();
+        }
+        
     }
 
 
     makeEmptyGrid() {
         let grid = [];
-        for (let i = 0; i < gridHeight; i++){
+        for (let row = 0; row < gridHeight; row++){
             grid.push([]);
-            for (let j = 0; j < gridWidth; j++) {
-                grid[i].push(null);
+            for (let col = 0; col < gridWidth; col++) {
+                grid[row].push(null);
             }        
         }
         return grid;
     }
 
     isValidPos(pos) {
-        return (0 <= pos[0]) &&
-            (pos[0] < gridHeight) &&
-            (0 <= pos[1]) &&
-            (pos[1] < gridWidth);
-    }
-
-    isEmpty(pos){
-        if(this.grid[pos[0]][pos[1]] === null){
-            return true;
-        } else {
+        if (pos.row < 0 || pos.row >= gridHeight) {
             return false;
         }
+        if (pos.col < 0 || pos.col >= gridWidth) {
+            return false;
+        }
+        return true;
+    }
+
+    isEmpty(pos) {
+        const result = this.grid[pos.row][pos.col] === null
+        console.log(` ${result ? 'is empty' : 'filled'} `, pos)
+        return result
     }
 
     isAvailableForPlacement(pos) {
         if (!this.isValidPos(pos)) {
             return false;
         }
-        for(let i = -1; i < 2; i++){
-            for (let j = -1; j < 2; j++){
-                let newPos = [pos[0] + i, pos[1] + j];
-                if (this.isValidPos(newPos) && !this.isEmpty(newPos)) {
+        for(let rowAdjust = -1; rowAdjust < 2; rowAdjust++){
+            for (let colAdjust = -1; colAdjust < 2; colAdjust++){
+                let newPos = new Position(pos.row + rowAdjust, pos.col + colAdjust)
+                if (!this.isValidPos(newPos) || !this.isEmpty(newPos)) {
                     return false;
                 }
             }
@@ -74,30 +82,42 @@ export default class Board{
     }
 
     populateAndPlaceCandles(){
-        let n = 10;
-        let placed = 0;
+        let maxCount = 10;
+        let placedCount = 0;
+        let attempts = 0
 
-        while (placed < n){
+        while (placedCount < maxCount && attempts < 100){
+            attempts += 1;
             let candleRow = (Math.floor(Math.random() * gridHeight));
             let candleCol = (Math.floor(Math.random() * gridWidth));
-            let pos = [candleRow, candleCol];
-            if (this.isAvailableForPlacement(pos)){
+            const pos = new Position(candleRow, candleCol);
+            if (this.isAvailableForPlacement(pos)) {
+                this.grid[pos.row][pos.col] = "X"
                 let gridPosition = this.calculateXY(pos);
-                console.log(gridPosition.x);
-                placed++;
-                this.addCandles(gridPosition.x, gridPosition.y);
-                this.removeScreen(gridPosition.x, gridPosition.y);
+                placedCount++;
+                const xOffset = -10 + (Math.floor(Math.random() * 20))
+                const yOffset = -10 + (Math.floor(Math.random() * 20))
+                this.addCandles(gridPosition.x + xOffset, gridPosition.y + yOffset);
+                this.removeScreen(gridPosition.x + 25 + xOffset, gridPosition.y + 10 + yOffset);
             }
+        }
+        if (attempts >= 100) {
+            console.error("gave up")
         }
     }
 
-    calculateXY(pos){
-        let row = pos[0];
-        let col = pos[1];
+    calculateXY(pos) {
+        let row = pos.row;
+        let col = pos.col;
         let hash = {}
-        let x = this.dimensions.width * (col/gridWidth);
+        const topPadding = 150;
+        const leftPadding = 10;
+        const rightPadding = 10;
+        const placeableHeight = this.dimensions.height - topPadding;
+        const placeableWidth = this.dimensions.width - leftPadding - rightPadding;
+        let x = placeableWidth * (col/gridWidth) + leftPadding;
         hash["x"] = x
-        let y = this.dimensions.height * (row/gridHeight);
+        let y = placeableHeight * (row/gridHeight) + topPadding;
         hash["y"] = y
         return hash;
     }
@@ -110,6 +130,4 @@ export default class Board{
             this.candleCtx.drawImage(candles, x, y, 50, 50);
         }
     }
-
-
 }
