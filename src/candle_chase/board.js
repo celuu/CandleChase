@@ -2,6 +2,8 @@ const gridWidth = 10;
 const gridHeight = 6;
 
 import Position from "./position";
+import Candle from "./candle";
+
 
 export default class Board{
 
@@ -12,13 +14,41 @@ export default class Board{
         this.screenCtx = screenCanvas.getContext('2d');
         this.dimensions = { width: screenCanvas.width, height: screenCanvas.height }
         this.grid = this.makeEmptyGrid();
-        this.applyScreen(this.screenCtx);
-        this.populateAndPlaceCandles();
+        this.candles = this.generateCandles();
     }
 
-    applyScreen(ctx){
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
+    update(character, keys){
+        if(keys.includes('Enter')){
+            for (let i = 0; i < this.candles.length; i++) {
+                let candle = this.candles[i];
+                let a = character.x - candle.x;
+                let b = character.y - candle.y;
+                let distanceBetween = Math.sqrt(a * a + b * b);
+                if(distanceBetween < 50){
+                    candle.isLit = true;
+                }
+            } 
+        }
+    }
+
+    draw(character){
+        this.drawAllCandles()
+        this.drawInitialScreen()
+        this.removeScreen(character.x + 70, character.y + 50);
+
+        for (let i = 0; i < this.candles.length; i++) {
+            let candle = this.candles[i];
+            if (candle.isLit) {
+                this.removeScreen(candle.x + 25, candle.y + 10);
+                console.log("removed screen")
+            }
+        } 
+    }
+
+    drawInitialScreen(){
+        this.screenCtx.globalCompositeOperation = "source-over";
+        this.screenCtx.fillStyle = "black";
+        this.screenCtx.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
     }
 
     removeScreen(x, y) {
@@ -60,7 +90,6 @@ export default class Board{
 
     isEmpty(pos) {
         const result = this.grid[pos.row][pos.col] === null
-        // console.log(` ${result ? 'is empty' : 'filled'} `, pos)
         return result
     }
 
@@ -79,10 +108,11 @@ export default class Board{
         return true;
     }
 
-    populateAndPlaceCandles(){
+    generateCandles(){
         let maxCount = 6;
         let placedCount = 0;
         let attempts = 0
+        let candles = [];
 
         while (placedCount < maxCount && attempts < 100){
             attempts += 1;
@@ -95,13 +125,16 @@ export default class Board{
                 placedCount++;
                 const xOffset = -10 + (Math.floor(Math.random() * 20))
                 const yOffset = -10 + (Math.floor(Math.random() * 20))
-                this.addCandles(gridPosition.x + xOffset, gridPosition.y + yOffset);
-                this.removeScreen(gridPosition.x + 25 + xOffset, gridPosition.y + 10 + yOffset);
+                const newCandle = new Candle(gridPosition.x + xOffset, gridPosition.y + yOffset)
+                candles.push(newCandle);
+                // this.removeScreen(gridPosition.x + 25 + xOffset, gridPosition.y + 10 + yOffset);
             }
         }
         if (attempts >= 100) {
             console.error("gave up")
         }
+
+        return candles;
     }
 
     calculateXY(pos) {
@@ -120,12 +153,21 @@ export default class Board{
         return hash;
     }
 
-    addCandles(x, y) {
-        let candles = new Image();
-        candles.src = './assets/candles.png';
+    drawAllCandles() {
+        if (this.candleImage) {
+            for (let i = 0; i < this.candles.length; i++) {
+                let candle = this.candles[i];
+                //  TODO: change candle based on lit
+                this.candleCtx.drawImage(this.candleImage, candle.x, candle.y, 50, 50);
+            }
+            return
+        }
 
-        candles.onload = () => {
-            this.candleCtx.drawImage(candles, x, y, 50, 50);
+        let candleImage = new Image();
+        candleImage.src = './assets/candles.png';
+        
+        candleImage.onload = () => {
+            this.candleImage = candleImage
         }
     }
 }
