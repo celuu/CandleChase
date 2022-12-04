@@ -26,7 +26,7 @@ export default class Board{
     removeScreen(x, y) {
         this.screenCtx.globalCompositeOperation = "destination-out";
         this.screenCtx.shadowBlur = 30;
-        this.screenCtx.shadowColor = "red";
+        this.screenCtx.shadowColor = "white";
 
         for (let i = 0; i < 5; i++) {
             this.screenCtx.beginPath();
@@ -62,7 +62,7 @@ export default class Board{
 
     isEmpty(pos) {
         const result = this.grid[pos.row][pos.col] === null
-        console.log(` ${result ? 'is empty' : 'filled'} `, pos)
+        // console.log(` ${result ? 'is empty' : 'filled'} `, pos)
         return result
     }
 
