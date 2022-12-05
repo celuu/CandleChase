@@ -39,7 +39,7 @@ export default class Character{
 
     draw(ctx){
         let playerImage = new Image();
-        playerImage.src = './assets/walking_dog.png';
+        playerImage.src = './assets/Sprite-0003.png';
         ctx.drawImage(playerImage, 1 * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
     }
 
