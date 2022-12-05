@@ -1,5 +1,4 @@
 
-
 export default class Character{
     constructor(game){
         this.game = game;
@@ -14,6 +13,8 @@ export default class Character{
     }  
 
     update(input){
+        //instead add the character sprite movement here
+
         //horizontal movement
         this.y += this.speed;
         if(input.includes('ArrowRight')) this.speed = this.maxSpeed;

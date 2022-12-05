@@ -19,6 +19,18 @@ export default class Board{
     }
 
     update(character, keys){
+
+        //add character update logic here
+        // OR get the desired 
+
+
+
+
+
+
+
+
+
         if(keys.length === 0){
             let allLit = true;
             for (let i = 0; i < this.candles.length; i++) {
@@ -66,9 +78,7 @@ export default class Board{
             this.screenCtx.lineWidth = 5;
             this.screenCtx.stroke();
         }
-        
     }
-
 
     makeEmptyGrid() {
         let grid = [];
@@ -171,5 +181,9 @@ export default class Board{
         candleImage.onload = () => {
             this.candleImage = candleImage
         }
+    }
+
+    candleCollision(){
+
     }
 }
