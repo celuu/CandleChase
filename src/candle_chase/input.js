@@ -7,7 +7,7 @@ export default class InputHandler {
                 e.key === 'ArrowUp' ||
                 e.key === 'ArrowLeft' ||
                 e.key === 'ArrowRight' ||
-                e.key === 'Enter')
+                e.key === "")
             && this.keys.indexOf(e.key) === -1){
                 this.keys.push(e.key);
             }
@@ -19,7 +19,7 @@ export default class InputHandler {
                 e.key === 'ArrowUp' ||
                 e.key === 'ArrowLeft' ||
                 e.key === 'ArrowRight' ||
-                e.key === 'Enter') {
+                e.key === "") {
                 this.keys.splice(this.keys.indexOf(e.key), 1);
             }
             console.log(e.key, this.keys);

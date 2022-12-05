@@ -1,5 +1,5 @@
-const gridWidth = 10;
-const gridHeight = 6;
+const gridWidth = 15;
+const gridHeight = 10;
 
 import Position from "./position";
 import Candle from "./candle";
@@ -15,10 +15,12 @@ export default class Board{
         this.dimensions = { width: screenCanvas.width, height: screenCanvas.height }
         this.grid = this.makeEmptyGrid();
         this.candles = this.generateCandles();
+        this.allCandlesLit = false;
     }
 
     update(character, keys){
-        if(keys.includes('Enter')){
+        if(keys.length === 0){
+            let allLit = true;
             for (let i = 0; i < this.candles.length; i++) {
                 let candle = this.candles[i];
                 let a = character.x - candle.x;
@@ -27,20 +29,21 @@ export default class Board{
                 if(distanceBetween < 50){
                     candle.isLit = true;
                 }
+                allLit = allLit && candle.isLit
             } 
+            this.allCandlesLit = allLit;
         }
     }
 
     draw(character){
         this.drawAllCandles()
         this.drawInitialScreen()
-        this.removeScreen(character.x + 70, character.y + 50);
+        this.removeScreen(character.x + 70, character.y + 50, 40);
 
         for (let i = 0; i < this.candles.length; i++) {
             let candle = this.candles[i];
             if (candle.isLit) {
-                this.removeScreen(candle.x + 25, candle.y + 10);
-                console.log("removed screen")
+                this.removeScreen(candle.x + 25, candle.y + 10, 20);
             }
         } 
     }
@@ -51,14 +54,14 @@ export default class Board{
         this.screenCtx.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
     }
 
-    removeScreen(x, y) {
+    removeScreen(x, y, radius) {
         this.screenCtx.globalCompositeOperation = "destination-out";
         this.screenCtx.shadowBlur = 30;
         this.screenCtx.shadowColor = "white";
 
         for (let i = 0; i < 5; i++) {
             this.screenCtx.beginPath();
-            this.screenCtx.arc(x, y, 20, 0, 2 * Math.PI, false);
+            this.screenCtx.arc(x, y, radius, 0, 2 * Math.PI, false);
             this.screenCtx.fill();
             this.screenCtx.lineWidth = 5;
             this.screenCtx.stroke();
@@ -109,7 +112,7 @@ export default class Board{
     }
 
     generateCandles(){
-        let maxCount = 6;
+        let maxCount = 10;
         let placedCount = 0;
         let attempts = 0
         let candles = [];
@@ -127,7 +130,6 @@ export default class Board{
                 const yOffset = -10 + (Math.floor(Math.random() * 20))
                 const newCandle = new Candle(gridPosition.x + xOffset, gridPosition.y + yOffset)
                 candles.push(newCandle);
-                // this.removeScreen(gridPosition.x + 25 + xOffset, gridPosition.y + 10 + yOffset);
             }
         }
         if (attempts >= 100) {
