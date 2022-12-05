@@ -16,20 +16,20 @@ export default class Board{
         this.grid = this.makeEmptyGrid();
         this.candles = this.generateCandles();
         this.allCandlesLit = false;
+        this.width = 100;
+        this.height = 100;
+        this.x = 350;
+        this.y = 0;
+        this.speed = 0;
+        this.maxSpeed = 5;
+        this.spriteWidth = 128;
+        this.spriteHeight = 128;
     }
 
     update(character, keys){
+        // check if character desired x & y are colliding?
 
-        //add character update logic here
-        // OR get the desired 
-
-
-
-
-
-
-
-
+        
 
         if(keys.length === 0){
             let allLit = true;
@@ -47,6 +47,8 @@ export default class Board{
         }
     }
 
+
+
     draw(character){
         this.drawAllCandles()
         this.drawInitialScreen()
@@ -59,6 +61,7 @@ export default class Board{
             }
         } 
     }
+
 
     drawInitialScreen(){
         this.screenCtx.globalCompositeOperation = "source-over";
@@ -183,7 +186,4 @@ export default class Board{
         }
     }
 
-    candleCollision(){
-
-    }
 }

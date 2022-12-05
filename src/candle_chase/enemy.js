@@ -15,17 +15,19 @@ export default class Enemy {
         this.speed = Math.random() * 4 ;
         this.frame = 0;
         this.timer = 0;
-
+        this.currentPos = (this.x, this.y);
     }  
 
     update(){
         this.x += this.speed ;
         this.y += this.speed;
-        
+
         this.timer++;
         if (this.timer % 5 === 0){
             this.frame > 4 ? this.frame = 0 : this.frame++;
         }
+
+        this.currentPos = (this.x, this.y);
     }
     
     draw(ctx) {
