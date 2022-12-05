@@ -11,7 +11,6 @@ export default class Character{
         this.maxSpeed = 5;
         this.spriteWidth = 128;
         this.spriteHeight = 128;
-        
     }  
 
     update(input){

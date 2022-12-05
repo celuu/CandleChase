@@ -1,6 +1,7 @@
 import Board from './board';
 import InputHandler from './input';
 import Character from './character'
+import Enemy from './enemy';
 
 export default class Game{
     constructor(candleCanvas, screenCanvas){
@@ -15,12 +16,15 @@ export default class Game{
         this.board = new Board(candleCanvas, screenCanvas);
         this.player = new Character(this);
         this.input = new InputHandler();
+        this.enemy = new Enemy(this);
         this.startTimer();
     }
+
 
     update(){
         this.player.update(this.input.keys);
         this.board.update(this.player, this.input.keys);
+        this.enemy.update();
     }
 
     draw(){
@@ -28,6 +32,8 @@ export default class Game{
         this.screenCtx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
         this.board.draw(this.player);
         this.player.draw(this.candleCtx);
+        this.enemy.draw(this.candleCtx);
+        
     }
 
     startTimer(){
@@ -37,7 +43,7 @@ export default class Game{
     decrementSecondsRemaining(){
         this.secondsRemaining--;
         document.getElementById("countDown").innerHTML = this.secondsRemaining;
-        if (this.secondsRemaining <= 0 && this.board.allCandlesLit == false) {
+        if (this.secondsRemaining <= 0) {
             this.gameOver();
             clearInterval(this.timer); 
         }
