@@ -22,14 +22,19 @@
         <source src="./assets/background_audio.mp3" type="audio/mp3">
     </audio>
 
+    <audio id="audio">
+        <source src="./assets/thunder.mp3" type="audio/mp3">
+    </audio>
+
     <div id="container">
         <!-- thunder background div -->
+        <div class="lightning"></div>
         <!-- normal background div -->
-        <!-- js getElementByID() can set opacity on normal background -->
-        <!-- look into css animation -->
-        <!-- [9,8,7,6,5,4,2,1,0,0,0,1,2,5,7,8,9,9] -->
+        <div class="background"></div>
         <canvas id="candle-canvas" width="1000" height="700"></canvas>
         <canvas id="screen-canvas" width="1000" height="700"></canvas>
+            
+        
         <div id="countDown"></div>
     </div>
 </body>

@@ -12,6 +12,8 @@ function animate() {
     game.update();
     game.draw();
 
+    //add start game into here?? needs to be in the play loop
+
     requestAnimationFrame(animate);
 };
 animate();

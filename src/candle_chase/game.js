@@ -17,20 +17,20 @@ export default class Game{
         this.player = new Character(this);
         this.input = new InputHandler();
         this.enemy = new Enemy(this);
+        this.timer = 0;
         this.startTimer();
         this.collided = false;
-        this.speed = 1;
-        this.frame = 0;
-        this.timer = 0;
+        this.lightning = 0;
+        this.startLightningLoop();
+
+        
+        
     }
-
-
-
 
     update(){
         this.player.update(this.input.keys);
         this.enemy.update();
-        this.detectCandleCollisions();
+        this.drawCharacter();
         this.detectEnemyCollisions();
         this.board.update(this.player, this.input.keys, this.candleCtx);
     }
@@ -47,15 +47,44 @@ export default class Game{
         this.timer = setInterval(this.decrementSecondsRemaining.bind(this), 1000);
     }
 
-    decrementSecondsRemaining(){
+    decrementSecondsRemaining() {
         this.secondsRemaining--;
         document.getElementById("countDown").innerHTML = this.secondsRemaining;
         if (this.secondsRemaining <= 0) {
             this.gameOver();
-            clearInterval(this.timer); 
+            clearInterval(this.timer);
         }
-        
     }
+
+    startLightningLoop(){
+       setInterval(this.runLightningAnimations.bind(this), 4000);
+    }
+
+    runLightningAnimations(){
+        console.log("running animation")
+        this.startLightning();
+        setTimeout(this.stopLightning, 3000);
+    }
+
+    startLightning(){
+        let changeBackground = document.getElementsByClassName("background")[0];
+        changeBackground.classList.add("lightningAnimationForBackground");
+        let getScreenCanvas = document.getElementById("screen-canvas");
+        getScreenCanvas.classList.add("lightningAnimationForScreen");
+        let getAudio = document.getElementById("audio");
+        // getAudio.play();  
+    }
+
+    stopLightning(){
+        let changeBackground = document.getElementsByClassName("background")[0];
+        changeBackground.classList.remove("lightningAnimationForBackground");
+        let getScreenCanvas = document.getElementById("screen-canvas");
+        getScreenCanvas.classList.remove("lightningAnimationForScreen");
+    }
+
+
+
+    
 
     // checkGameStatus(){
         
@@ -109,24 +138,10 @@ export default class Game{
 
     }
 
-    detectCandleCollisions(){
-        // let playerX = this.player.x;
-        // let playerY = this.player.y;
-        // let candles = this.board.candles;
-        // for(let i = 0; i < candles.length; i++) {
-        //     let candle = candles[i];
-        //     let candleX = candle.x;
-        //     let candleY = candle.y;
-        //     this.isColliding(playerX, playerY, this.player.width, this.player.height,
-        //         candleX, candleY, candle.candleWidth, candle.candleHeight);
-        // }
-        // if(this.collided === false){
-            this.player.x = this.player.desiredX;
-            this.player.y = this.player.desiredY;
-        // } 
+    drawCharacter(){
+        this.player.x = this.player.desiredX;
+        this.player.y = this.player.desiredY;
     }
-
-   
    
 }
 

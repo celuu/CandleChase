@@ -4,8 +4,8 @@ export default class Character{
         this.game = game;
         this.width = 100;
         this.height = 100;
-        this.x = 350;
-        this.y = 0;
+        this.x = 450;
+        this.y = 120;
         this.desiredX = 350;
         this.desiredY = 0;
         this.maxSpeed = 5;
