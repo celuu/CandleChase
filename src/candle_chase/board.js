@@ -18,20 +18,27 @@ export default class Board{
         this.allCandlesLit = false;
         this.width = 100;
         this.height = 100;
+        this.candleWidth = 50;
+        this.candleHeight = 50;
         this.x = 350;
         this.y = 0;
         this.speed = 0;
         this.maxSpeed = 5;
         this.spriteWidth = 128;
         this.spriteHeight = 128;
+        this.frame = 1;
+        this.timer = 0;
     }
 
-    update(character, keys){
-        // check if character desired x & y are colliding?
-
-        
-
-        if(keys.length === 0){
+    update(character, keys, ctx){
+        if(keys.includes('Space')){
+            // let lightCandles = new Image();
+            // lightCandles.src = './assets/spritesheet.png';
+            // this.timer++;
+            // if (this.timer % 5 === 0) {
+            //     this.frame > 6 ? this.frame = 0 : this.frame++;
+            // }
+            // ctx.drawImage(lightCandles, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
             let allLit = true;
             for (let i = 0; i < this.candles.length; i++) {
                 let candle = this.candles[i];
@@ -47,8 +54,6 @@ export default class Board{
         }
     }
 
-
-
     draw(character){
         this.drawAllCandles()
         this.drawInitialScreen()
@@ -57,7 +62,7 @@ export default class Board{
         for (let i = 0; i < this.candles.length; i++) {
             let candle = this.candles[i];
             if (candle.isLit) {
-                this.removeScreen(candle.x + 25, candle.y + 10, 20);
+                this.removeScreen(candle.x + 25, candle.y + 10, 30);
             }
         } 
     }
@@ -173,7 +178,7 @@ export default class Board{
             for (let i = 0; i < this.candles.length; i++) {
                 let candle = this.candles[i];
                 //  TODO: change candle based on lit
-                this.candleCtx.drawImage(this.candleImage, candle.x, candle.y, 50, 50);
+                this.candleCtx.drawImage(this.candleImage, candle.x, candle.y, this.candleWidth, this.candleHeight);
             }
             return
         }

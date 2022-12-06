@@ -12,10 +12,9 @@ export default class Enemy {
         this.spriteWidth = 16;
         this.spriteHeight = 24;
         this.numOfEnemies = 5;
-        this.speed = Math.random() * 4 ;
+        this.speed = 1 ;
         this.frame = 0;
         this.timer = 0;
-        this.currentPos = (this.x, this.y);
     }  
 
     update(){
@@ -23,18 +22,15 @@ export default class Enemy {
         this.y += this.speed;
 
         this.timer++;
-        if (this.timer % 5 === 0){
+        if (this.timer % 3 === 0){
             this.frame > 4 ? this.frame = 0 : this.frame++;
         }
-
-        this.currentPos = (this.x, this.y);
     }
     
     draw(ctx) {
         let playerImage = new Image();
         playerImage.src = './assets/Bat_Sprite_Sheet.png';
         ctx.drawImage(playerImage, this.frame * this.spriteWidth, this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height);
-
     }
 
 }

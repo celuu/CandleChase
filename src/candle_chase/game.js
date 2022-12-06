@@ -24,9 +24,10 @@ export default class Game{
 
     update(){
         this.player.update(this.input.keys);
-        this.board.update(this.player, this.input.keys);
         this.enemy.update();
-        this.detectCollisions();
+        this.detectCandleCollisions();
+        this.detectEnemyCollisions();
+        this.board.update(this.player, this.input.keys, this.candleCtx);
     }
 
     draw(){
@@ -34,8 +35,7 @@ export default class Game{
         this.screenCtx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
         this.board.draw(this.player);
         this.player.draw(this.candleCtx);
-        this.enemy.draw(this.candleCtx);
-        
+        this.enemy.draw(this.candleCtx);  
     }
 
     startTimer(){
@@ -67,38 +67,43 @@ export default class Game{
         console.log("yay you won level")
     }
 
-    // detectCollisions() {
-    //     let charPos = [this.player.desiredX, this.player.desiredY];
-    //     let candlesPos = this.board.candles;
-    //     for (let i = 0; i < candlesPos.length; i++){
-    //         let candle = candlesPos[i];
-    //         if(charPos[0] <  ){
-    //             this.collided = true;
-    //         } else {
-    //             this.collided = false;
-    //         }
-    //     }
- 
+    detectEnemyCollisions() {
+        let batX = this.enemy.x;
+        let batY = this.enemy.y;
+        let playerX = this.player.x
+        let playerY = this.player.y
 
-        // // Reset collision state of all objects
-        // for (let i = 0; i < gameObjects.length; i++) {
-        //     gameObjects[i].isColliding = false;
+        this.isColliding(playerX, playerY, this.player.width, this.player.height,
+            batX, batY, this.enemy.width, this.enemy.height);
+    }
+
+    isColliding(area1x, area1y, area1width, area1height, area2x, area2y, area2width, area2height){
+        if (area1x > area2x + area2width ||
+            area1x + area1width < area2x ||
+            area1y > area2y + area2height ||
+            area1y + area1height < area2y ){
+                this.collided = false;
+            } else {
+                this.collided = true;
+        }
+    }
+
+    detectCandleCollisions(){
+        // let playerX = this.player.x;
+        // let playerY = this.player.y;
+        // let candles = this.board.candles;
+        // for(let i = 0; i < candles.length; i++) {
+        //     let candle = candles[i];
+        //     let candleX = candle.x;
+        //     let candleY = candle.y;
+        //     this.isColliding(playerX, playerY, this.player.width, this.player.height,
+        //         candleX, candleY, candle.candleWidth, candle.candleHeight);
         // }
-
-        // // Start checking for collisions
-        // for (let i = 0; i < gameObjects.length; i++) {
-        //     obj1 = gameObjects[i];
-        //     for (let j = i + 1; j < gameObjects.length; j++) {
-        //         obj2 = gameObjects[j];
-
-        //         // Compare object1 with object2
-        //         if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, obj2.x, obj2.y, obj2.width, obj2.height)) {
-        //             obj1.isColliding = true;
-        //             obj2.isColliding = true;
-        //         }
-        //     }
-        // }
-    // }
+        // if(this.collided === false){
+            this.player.x = this.player.desiredX;
+            this.player.y = this.player.desiredY;
+        // } 
+    }
 
    
    

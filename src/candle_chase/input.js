@@ -1,28 +1,27 @@
 
 export default class InputHandler {
+
     constructor(){
         this.keys = [];
         window.addEventListener('keydown', e => {
-            if((e.key === 'ArrowDown' ||
-                e.key === 'ArrowUp' ||
-                e.key === 'ArrowLeft' ||
-                e.key === 'ArrowRight' ||
-                e.key === "")
-            && this.keys.indexOf(e.key) === -1){
-                this.keys.push(e.key);
+            if((e.code === 'ArrowDown' ||
+                e.code === 'ArrowUp' ||
+                e.code === 'ArrowLeft' ||
+                e.code === 'ArrowRight' ||
+                e.code === "Space")
+            && this.keys.indexOf(e.code) === -1){
+                this.keys.push(e.code);
             }
-            console.log(e.key, this.keys);
         });
 
         window.addEventListener('keyup', e => {
-            if (e.key === 'ArrowDown' ||
-                e.key === 'ArrowUp' ||
-                e.key === 'ArrowLeft' ||
-                e.key === 'ArrowRight' ||
-                e.key === "") {
-                this.keys.splice(this.keys.indexOf(e.key), 1);
+            if (e.code === 'ArrowDown' ||
+                e.code === 'ArrowUp' ||
+                e.code === 'ArrowLeft' ||
+                e.code === 'ArrowRight' ||
+                e.code === "Space") {
+                this.keys.splice(this.keys.indexOf(e.code), 1);
             }
-            console.log(e.key, this.keys);
         })
     }
 }

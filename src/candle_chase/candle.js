@@ -6,7 +6,5 @@ export default class Candle{
 
     }
 
-    //player distance to candle
-    //add it to the player class
 
 }
