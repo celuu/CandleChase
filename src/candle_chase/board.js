@@ -57,7 +57,9 @@ export default class Board{
     draw(character){
         this.drawAllCandles()
         this.drawInitialScreen()
-        this.removeScreen(character.x + 70, character.y + 50, 40);
+        this.removeScreen(character.x + 70, character.y + 50, 40); 
+        this.removeScreen(500, 120, 60);
+        this.removeScreenForTimer(20, 40, 225, 45);
 
         for (let i = 0; i < this.candles.length; i++) {
             let candle = this.candles[i];
@@ -67,8 +69,18 @@ export default class Board{
         } 
     }
 
+    removeScreenForTimer(topLeft, topRight, bottomLeft, bottomRight) {
+        
+        this.screenCtx.fillStyle = "#FFFFFF";
+        this.screenCtx.fillRect(topLeft, topRight, bottomLeft, bottomRight);
+        this.screenCtx.fill();
+        this.screenCtx.globalCompositeOperation = "destination-out";
+        this.screenCtx.shadowBlur = 30;
+        this.screenCtx.shadowColor = "white";
 
-
+        this.screenCtx.lineWidth = 5;
+        this.screenCtx.stroke();
+    }
 
     drawInitialScreen(){
         this.screenCtx.globalCompositeOperation = "source-over";

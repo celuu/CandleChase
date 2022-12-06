@@ -140,6 +140,7 @@ table {
   display: flex;
   align-content: center;
   justify-content: center;
+  margin: auto;
 }
 
 .background {
@@ -173,14 +174,15 @@ table {
 }
 
 .lightningAnimationForScreen {
-  animation: updateOpacityForScreen 3s ease-in-out;
+  animation: updateOpacityForScreen 1s ease-in-out;
 }
 
 .lightningAnimationForBackground {
-  animation: updateOpacityForBackground 3s ease-in-out;
+  animation: updateOpacityForBackground 1s ease-in-out;
 }
 
 #candle-canvas {
+  font-family: "Nerko One", cursive;
   position: absolute;
   left: 0;
   top: 0;
@@ -207,22 +209,22 @@ table {
   0% {
     opacity: 0.7;
   }
-  5% {
-    opacity: 0.5;
-  }
   10% {
-    opacity: 0.3;
-  }
-  15% {
-    opacity: 0.1;
+    opacity: 0.5;
   }
   20% {
     opacity: 0.3;
   }
-  25% {
-    opacity: 0.5;
+  30% {
+    opacity: 0.1;
   }
   40% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
     opacity: 0.7;
   }
   100% {
@@ -233,22 +235,22 @@ table {
   0% {
     opacity: 0.7;
   }
-  5% {
-    opacity: 0.5;
-  }
   10% {
-    opacity: 0.3;
-  }
-  15% {
-    opacity: 0.1;
+    opacity: 0.5;
   }
   20% {
     opacity: 0.3;
   }
-  25% {
-    opacity: 0.5;
+  30% {
+    opacity: 0.1;
   }
   40% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
     opacity: 0.7;
   }
   100% {
@@ -265,6 +267,14 @@ table {
 h1 {
   font-family: "Nerko One", cursive;
   font-size: 50px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+h2 {
+  font-family: "Nerko One", cursive;
+  font-size: 35px;
   display: flex;
   align-content: center;
   justify-content: center;

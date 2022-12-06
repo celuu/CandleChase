@@ -5,7 +5,6 @@ export default class Candle{
         this.y = y;
         this.width = 50;
         this.height = 50;
-
     }
 
 

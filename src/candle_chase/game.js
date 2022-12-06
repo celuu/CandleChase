@@ -18,12 +18,14 @@ export default class Game{
         this.input = new InputHandler();
         this.enemy = new Enemy(this);
         this.timer = 0;
+        this.collidedTimer = 0;
+        this.frame = 1;
+        this.spriteWidth = 129;
+        this.spriteHeight = 128;
         this.startTimer();
         this.collided = false;
         this.lightning = 0;
-        this.startLightningLoop();
-
-        
+        this.startLightningLoop(); 
         
     }
 
@@ -41,6 +43,7 @@ export default class Game{
         this.board.draw(this.player);
         this.player.draw(this.candleCtx);
         this.enemy.draw(this.candleCtx);  
+        this.drawTimer();
     }
 
     startTimer(){
@@ -49,7 +52,6 @@ export default class Game{
 
     decrementSecondsRemaining() {
         this.secondsRemaining--;
-        document.getElementById("countDown").innerHTML = this.secondsRemaining;
         if (this.secondsRemaining <= 0) {
             this.gameOver();
             clearInterval(this.timer);
@@ -112,15 +114,24 @@ export default class Game{
         this.isColliding(playerX, playerY, this.player.width, this.player.height,
             batX, batY, this.enemy.width, this.enemy.height)
 
-        // if (this.collided === true){      
-        //     let playerImage = new Image();
-        //     playerImage.src = './assets/spritesheet.png';
-        //     this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 128, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
-       
-        //             this.frame > 9 ? this.frame = 0 : this.frame++;
-        //     }
-        
+        if (this.collided === true){    
+            let playerImage = new Image();
+            playerImage.src = './assets/spritesheet.png';
+            this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 128, this.spriteWidth, this.spriteHeight, playerX, playerY, this.player.width, this.player.height)
+            this.collidedTimer++;
+            if (this.collidedTimer % 5 === 0) {
+                this.frame++;
 
+            }
+            console.log(this.collidedTimer % 5)
+        }
+
+    }
+
+    drawTimer(){
+        this.candleCtx.font = "40px Nerko One";
+        this.candleCtx.fillStyle = "#FFFFFF";
+        this.candleCtx.fillText(`Time Left: ${this.secondsRemaining} `, 20, 75);
     }
 
 
