@@ -3,6 +3,8 @@ export default class Candle{
         this.isLit = false;
         this.x = x;
         this.y = y;
+        this.width = 50;
+        this.height = 50;
 
     }
 

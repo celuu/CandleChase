@@ -19,7 +19,12 @@ export default class Game{
         this.enemy = new Enemy(this);
         this.startTimer();
         this.collided = false;
+        this.speed = 1;
+        this.frame = 0;
+        this.timer = 0;
     }
+
+
 
 
     update(){
@@ -67,6 +72,8 @@ export default class Game{
         console.log("yay you won level")
     }
 
+    
+
     detectEnemyCollisions() {
         let batX = this.enemy.x;
         let batY = this.enemy.y;
@@ -74,8 +81,21 @@ export default class Game{
         let playerY = this.player.y
 
         this.isColliding(playerX, playerY, this.player.width, this.player.height,
-            batX, batY, this.enemy.width, this.enemy.height);
+            batX, batY, this.enemy.width, this.enemy.height)
+
+        // if (this.collided === true){      
+        //     let playerImage = new Image();
+        //     playerImage.src = './assets/spritesheet.png';
+        //     this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 128, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
+       
+        //             this.frame > 9 ? this.frame = 0 : this.frame++;
+        //     }
+        
+
     }
+
+
+
 
     isColliding(area1x, area1y, area1width, area1height, area2x, area2y, area2width, area2height){
         if (area1x > area2x + area2width ||
@@ -86,6 +106,7 @@ export default class Game{
             } else {
                 this.collided = true;
         }
+
     }
 
     detectCandleCollisions(){

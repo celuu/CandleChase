@@ -6,13 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
+    </style>
     <script src="./dist/main.js" defer></script>
     <title>Candle Chase</title>
 </head>
 
 <body>
-    <h1>Candle Chase!!</h1>
+    <h1>Candle Chase!</h1>
+    <audio controls autoplay>
+        <source src="./assets/background_audio.mp3" type="audio/mp3">
+    </audio>
+
     <div id="container">
+        <!-- thunder background div -->
+        <!-- normal background div -->
+        <!-- js getElementByID() can set opacity on normal background -->
+        <!-- look into css animation -->
+        <!-- [9,8,7,6,5,4,2,1,0,0,0,1,2,5,7,8,9,9] -->
         <canvas id="candle-canvas" width="1000" height="700"></canvas>
         <canvas id="screen-canvas" width="1000" height="700"></canvas>
         <div id="countDown"></div>

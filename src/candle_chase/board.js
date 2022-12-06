@@ -42,8 +42,8 @@ export default class Board{
             let allLit = true;
             for (let i = 0; i < this.candles.length; i++) {
                 let candle = this.candles[i];
-                let a = character.x - candle.x;
-                let b = character.y - candle.y;
+                let a = character.x  - candle.x ;
+                let b = character.y  - candle.y;
                 let distanceBetween = Math.sqrt(a * a + b * b);
                 if(distanceBetween < 50){
                     candle.isLit = true;
@@ -66,6 +66,8 @@ export default class Board{
             }
         } 
     }
+
+
 
 
     drawInitialScreen(){
