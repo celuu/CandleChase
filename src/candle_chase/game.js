@@ -26,6 +26,7 @@ export default class Game{
         this.collided = false;
         this.lightning = 0;
         this.startLightningLoop(); 
+        this.playAudio();
         
     }
 
@@ -35,6 +36,7 @@ export default class Game{
         this.drawCharacter();
         this.detectEnemyCollisions();
         this.board.update(this.player, this.input.keys, this.candleCtx);
+        this.checkGameStatus();
     }
 
     draw(){
@@ -44,6 +46,7 @@ export default class Game{
         this.player.draw(this.candleCtx);
         this.enemy.draw(this.candleCtx);  
         this.drawTimer();
+        this.drawMuteButton();
     }
 
     startTimer(){
@@ -73,8 +76,8 @@ export default class Game{
         changeBackground.classList.add("lightningAnimationForBackground");
         let getScreenCanvas = document.getElementById("screen-canvas");
         getScreenCanvas.classList.add("lightningAnimationForScreen");
-        let getAudio = document.getElementById("audio");
-        // getAudio.play();  
+        let audioElement = document.getElementById("audio");
+        // audioElement.play();  
     }
 
     stopLightning(){
@@ -84,25 +87,21 @@ export default class Game{
         getScreenCanvas.classList.remove("lightningAnimationForScreen");
     }
 
-
-
-    
-
-    // checkGameStatus(){
+    playAudio(){
+        let audio = new Audio('./assets/background_audio.mp3');
         
-    //     } else if(this.secondsRemaining > 0 && this.board.allCandlesLit == true){
-    //         this.hasWonLevel();
-    //     }
-    // }
+    }
+
+    checkGameStatus(){
+        if (this.secondsRemaining <= 0 && this.board.allCandlesLit == false){
+           this.gameOver(); 
+        }
+    }
 
     gameOver(){
-        console.log("boo you loser")
+        let unhide = document.getElementById("end_game_screen");
+        unhide.classList.remove("hidden");
     }
-    
-    hasWonLevel(){
-        console.log("yay you won level")
-    }
-
     
 
     detectEnemyCollisions() {
@@ -115,15 +114,19 @@ export default class Game{
             batX, batY, this.enemy.width, this.enemy.height)
 
         if (this.collided === true){    
-            let playerImage = new Image();
-            playerImage.src = './assets/spritesheet.png';
-            this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 128, this.spriteWidth, this.spriteHeight, playerX, playerY, this.player.width, this.player.height)
-            this.collidedTimer++;
-            if (this.collidedTimer % 5 === 0) {
-                this.frame++;
 
-            }
-            console.log(this.collidedTimer % 5)
+            
+    
+
+            // let playerImage = new Image();
+            // playerImage.src = './assets/spritesheet.png';
+            // this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 128, this.spriteWidth, this.spriteHeight, playerX, playerY, this.player.width, this.player.height)
+            // this.collidedTimer++;
+            // if (this.collidedTimer % 5 === 0) {
+            //     this.frame++;
+
+            // }
+            // console.log(this.collidedTimer % 5)
         }
 
     }
@@ -133,6 +136,16 @@ export default class Game{
         this.candleCtx.fillStyle = "#FFFFFF";
         this.candleCtx.fillText(`Time Left: ${this.secondsRemaining} `, 20, 75);
     }
+
+    drawMuteButton() {
+        this.candleCtx.font = "40px Nerko One";
+        this.candleCtx.fillStyle = "#FFFFFF";
+        this.candleCtx.fillText("MUTE", 900, 75);
+    }
+
+    // clickMuteButton(){
+    //     addEventListener
+    // }
 
 
 
