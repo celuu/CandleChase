@@ -21,6 +21,20 @@ window.addEventListener('keydown', e =>{
         }       
     }
 })  
+let unmuteButton = document.getElementById("unmuteButton");
+let muteButton = document.getElementById("muteButton");
+muteButton.addEventListener("click", () => {
+    game.music.volume = 0.0;
+    unmuteButton.classList.remove("hidden");
+    muteButton.classListlist.add("hidden");
+});
+
+unmuteButton.addEventListener("click", () => {
+    game.music.volume = 0.1;
+    muteButton.classList.remove("hidden");
+    unmuteButton.classList.add("hidden");
+});
+
 
 function animate() {
     game.update();

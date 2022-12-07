@@ -10,7 +10,7 @@ export default class Game{
         this.candleCtx = candleCanvas.getContext('2d');
         this.screenCtx = screenCanvas.getContext('2d');
         this.score = 0;
-        this.secondsRemaining = 5;
+        this.secondsRemaining = 20;
         this.winningScore = 100;
         this.dimensions = { width: candleCanvas.width, height: candleCanvas.height }
         this.board = new Board(candleCanvas, screenCanvas);
@@ -26,17 +26,22 @@ export default class Game{
         this.collided = false;
         this.lightning = 0;
         this.startLightningLoop(); 
-        this.playAudio();
         this.isOver = false
         this.lightningLoopTimer = 0;
+        this.music = document.createElement("audio");
+        this.music.src = "./assets/background_audio.mp3";
+        this.music.volume = 0.1;
+        this.music.play();
+        this.userWon = false;
+        this.audioElement = document.getElementById("audio");
     }
 
     update(){
         if (this.isOver) return;
         this.player.update(this.input.keys);
         this.enemy.update();
-        this.drawCharacter();
         this.detectEnemyCollisions();
+        this.drawCharacter();
         this.board.update(this.player, this.input.keys, this.candleCtx);
         this.checkGameStatus();
     }
@@ -48,7 +53,6 @@ export default class Game{
         this.player.draw(this.candleCtx);
         this.enemy.draw(this.candleCtx);  
         this.drawTimer();
-        this.drawMuteButton();
     }
 
     startTimer(){
@@ -78,8 +82,7 @@ export default class Game{
         changeBackground.classList.add("lightningAnimationForBackground");
         let getScreenCanvas = document.getElementById("screen-canvas");
         getScreenCanvas.classList.add("lightningAnimationForScreen");
-        let audioElement = document.getElementById("audio");
-        // audioElement.play();  
+        this.audioElement.play();  
     }
 
     stopLightning(){
@@ -89,19 +92,28 @@ export default class Game{
         getScreenCanvas.classList.remove("lightningAnimationForScreen");
     }
 
-    playAudio(){
-        let audio = new Audio('./assets/background_audio.mp3');
-        
-    }
-
     checkGameStatus(){
         if (this.secondsRemaining <= 0 && this.board.allCandlesLit == false){
            this.gameOver(); 
         }
+        if (this.board.allCandlesLit == true && this.secondsRemaining > 0){
+            this.gameWon();
+        }
+    }
+
+    gameWon(){
+        this.music.pause();
+        this.audioElement.pause()
+        clearInterval(this.timer);
+        clearInterval(this.lightningLoopTimer);
+        this.isOver = true
+        let unhideWinnerScreen = document.getElementById("winner_screen");
+        unhideWinnerScreen.classList.remove("hidden");
     }
 
     gameOver(){
-        console.log("gmae over")
+        this.music.pause();
+        this.audioElement.pause();
         clearInterval(this.timer);
         clearInterval(this.lightningLoopTimer);
         this.isOver = true
@@ -118,23 +130,16 @@ export default class Game{
 
         this.isColliding(playerX, playerY, this.player.width, this.player.height,
             batX, batY, this.enemy.width, this.enemy.height)
-
+            console.log(this.collided)
         if (this.collided === true){    
-
-            
-    
-
+            this.player.x = 450;
+            this.player.y = 120;
             // let playerImage = new Image();
             // playerImage.src = './assets/spritesheet.png';
-            // this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 128, this.spriteWidth, this.spriteHeight, playerX, playerY, this.player.width, this.player.height)
-            // this.collidedTimer++;
-            // if (this.collidedTimer % 5 === 0) {
-            //     this.frame++;
-
-            // }
-            // console.log(this.collidedTimer % 5)
+            // this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, playerX, playerY, this.player.width, this.player.height)
+            // if(this.frame < 9) this.frame++;
+            // else this.frame = 0; 
         }
-
     }
 
     drawTimer(){
@@ -143,15 +148,15 @@ export default class Game{
         this.candleCtx.fillText(`Time Left: ${this.secondsRemaining} `, 20, 75);
     }
 
-    drawMuteButton() {
-        this.candleCtx.font = "40px Nerko One";
-        this.candleCtx.fillStyle = "#FFFFFF";
-        this.candleCtx.fillText("MUTE", 900, 75);
-    }
+    // drawMuteButton() {
+    //     let muteButton = document.getElementById("mute");
 
-    // clickMuteButton(){
-    //     addEventListener
+    //     this.candleCtx.font = "40px Nerko One";
+    //     this.candleCtx.fillStyle = "#FFFFFF";
+    //     this.candleCtx.fillText("MUTE", 900, 75);
     // }
+
+    
 
 
 

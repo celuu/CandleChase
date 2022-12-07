@@ -191,7 +191,11 @@ export default class Board{
         if (this.candleImage) {
             for (let i = 0; i < this.candles.length; i++) {
                 let candle = this.candles[i];
-                //  TODO: change candle based on lit
+                if(candle.isLit){
+                    let litCandle = new Image();
+                    litCandle.src = './assets/lit-candles.png';
+                    this.candleCtx.drawImage(litCandle, candle.x, candle.y, this.candleWidth, this.candleHeight);
+                }
                 this.candleCtx.drawImage(this.candleImage, candle.x, candle.y, this.candleWidth, this.candleHeight);
             }
             return
