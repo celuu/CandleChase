@@ -10,7 +10,7 @@ export default class Game{
         this.candleCtx = candleCanvas.getContext('2d');
         this.screenCtx = screenCanvas.getContext('2d');
         this.score = 0;
-        this.secondsRemaining = 20;
+        this.secondsRemaining = 5;
         this.winningScore = 100;
         this.dimensions = { width: candleCanvas.width, height: candleCanvas.height }
         this.board = new Board(candleCanvas, screenCanvas);
@@ -27,10 +27,12 @@ export default class Game{
         this.lightning = 0;
         this.startLightningLoop(); 
         this.playAudio();
-        
+        this.isOver = false
+        this.lightningLoopTimer = 0;
     }
 
     update(){
+        if (this.isOver) return;
         this.player.update(this.input.keys);
         this.enemy.update();
         this.drawCharacter();
@@ -54,15 +56,15 @@ export default class Game{
     }
 
     decrementSecondsRemaining() {
+        console.log("sec")
         this.secondsRemaining--;
         if (this.secondsRemaining <= 0) {
             this.gameOver();
-            clearInterval(this.timer);
         }
     }
 
     startLightningLoop(){
-       setInterval(this.runLightningAnimations.bind(this), 6000);
+        this.lightningLoopTimer = setInterval(this.runLightningAnimations.bind(this), 6000);
     }
 
     runLightningAnimations(){
@@ -99,6 +101,10 @@ export default class Game{
     }
 
     gameOver(){
+        console.log("gmae over")
+        clearInterval(this.timer);
+        clearInterval(this.lightningLoopTimer);
+        this.isOver = true
         let unhide = document.getElementById("end_game_screen");
         unhide.classList.remove("hidden");
     }
