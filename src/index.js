@@ -18,19 +18,24 @@ window.addEventListener('keydown', e =>{
             game = new Game(candleCanvas, screenCanvas);
             let endGame = document.getElementById("end_game_screen");
             endGame.classList.add("hidden");
+            let startGame = document.getElementById("start_game_screen");
+            startGame.classList.add("hidden");
         }       
     }
 })  
 let unmuteButton = document.getElementById("unmuteButton");
 let muteButton = document.getElementById("muteButton");
+unmuteButton.classList.add("hidden");
 muteButton.addEventListener("click", () => {
     game.music.volume = 0.0;
+    game.audioElement.volume = 0.0;
     unmuteButton.classList.remove("hidden");
-    muteButton.classListlist.add("hidden");
+    muteButton.classList.add("hidden");
 });
 
 unmuteButton.addEventListener("click", () => {
     game.music.volume = 0.1;
+    game.audioElement.volume = 0.1;
     muteButton.classList.remove("hidden");
     unmuteButton.classList.add("hidden");
 });

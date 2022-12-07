@@ -26,8 +26,11 @@
         <a href="https://github.com/celuu" target="_blank"><i class="fa-brands fa-github"></i></a>
         <a href="www.linkedin.com/in/christineeluu" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
         <a href="mailto: christine.e.luu@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        <button id="muteButton"><img src="./assets/unmute.png" width="35" height="35"></button>
+        <button id="unmuteButton"><img src="./assets/mute.png" width="35" height="35"></button>
     </nav>
-    
+
+  
 
     <audio id="audio">
         <source src="./assets/thunder.mp3" type="audio/mp3">
@@ -41,11 +44,18 @@
         <div class="background"></div>
         <canvas id="candle-canvas" width="1000" height="700"></canvas>
         <canvas id="screen-canvas" width="1000" height="700"></canvas>
-        <div id="start_game_screen"> Press any key to Start </div>
-        <div id="end_game_screen" class="hidden"> Game Over </div>
-        <div id="winner_screen" class="hidden">Yay you lit all the candles!</div>
-        <div id="muteButton" >||</div>
-        <div id="unmuteButton" class="hidden">|></div>
+        <div id="start_game_screen"> <p id="start"> Press Spacebar to Start </p>
+            <p id="instructions">Instructions: Light all the candles before time runs out! Hit the spacebar to light a candle. Avoid the bat or it will cost you your precious time! </p>
+        </div>
+        <div id="end_game_screen" class="hidden"> <p id="gameover">Game Over </p>
+            <p id="play"> Play Again?</p>
+            <p>Press Spacebar to Start a New Game</p>
+        </div>
+        <div id="winner_screen" class="hidden">
+            <p id="winner">Yay you lit all the candles!</p>
+            <p id="play"> Play Again?</p>
+            <p>Press Spacebar to Start a New Game</p>
+        </div>
         
             
         

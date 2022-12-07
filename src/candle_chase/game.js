@@ -19,7 +19,7 @@ export default class Game{
         this.enemy = new Enemy(this);
         this.timer = 0;
         this.collidedTimer = 0;
-        this.frame = 1;
+        this.dyingFrame = 1;
         this.spriteWidth = 129;
         this.spriteHeight = 128;
         this.startTimer();
@@ -34,6 +34,7 @@ export default class Game{
         this.music.play();
         this.userWon = false;
         this.audioElement = document.getElementById("audio");
+        this.isDying = false;
     }
 
     update(){
@@ -44,6 +45,7 @@ export default class Game{
         this.drawCharacter();
         this.board.update(this.player, this.input.keys, this.candleCtx);
         this.checkGameStatus();
+        
     }
 
     draw(){
@@ -53,6 +55,16 @@ export default class Game{
         this.player.draw(this.candleCtx);
         this.enemy.draw(this.candleCtx);  
         this.drawTimer();
+        if (this.isDying) { 
+            let playerImage = new Image();
+            playerImage.src = './assets/spritesheet.png';
+            this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, playerX, playerY, this.player.width, this.player.height)
+            if (this.dyingFrame < 9) this.dyingFrame++;
+            else {
+                this.isDying = false;
+                this.dyingFrame = 1;
+            }
+        }
     }
 
     startTimer(){
@@ -131,14 +143,8 @@ export default class Game{
         this.isColliding(playerX, playerY, this.player.width, this.player.height,
             batX, batY, this.enemy.width, this.enemy.height)
             console.log(this.collided)
-        if (this.collided === true){    
-            this.player.x = 450;
-            this.player.y = 120;
-            // let playerImage = new Image();
-            // playerImage.src = './assets/spritesheet.png';
-            // this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, playerX, playerY, this.player.width, this.player.height)
-            // if(this.frame < 9) this.frame++;
-            // else this.frame = 0; 
+        if (this.collided === true && this.isDying === false){   
+            this.isDying = true; 
         }
     }
 
