@@ -12,25 +12,30 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
     </style>
+    <script src="https://kit.fontawesome.com/df26f2baff.js" crossorigin="anonymous"></script>
     <script src="./dist/main.js" defer></script>
     <title>Candle Chase</title>
 </head>
 
 <body>
-    <h1>Candle Chase!</h1>
-    <h2>Created by Christine Luu</h2>
-    <audio controls autoplay>
+    <header>
+        <h1>Candle Chase!</h1>
+    </header>
+    
+    <nav>
+        <a href="https://github.com/celuu" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="www.linkedin.com/in/christineeluu" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href=""><i class="fa-solid fa-envelope"></i></a>
+    </nav>
+    
+    <!-- <audio controls autoplay>
         <source src="./assets/background_audio.mp3" type="audio/mp3">
-    </audio>
+    </audio> -->
 
     <audio id="audio">
         <source src="./assets/thunder.mp3" type="audio/mp3">
     </audio>
-    <div class="topnav">
-        <a href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="">Mute</a>
-    </div>
+
 
     <div id="container">
         <!-- thunder background div -->
@@ -44,12 +49,9 @@
         <div id="countDown"></div>
     </div>
 
-
-    <div class="bottomNav">
-        <a href="">GitHub</a>
-        <a href="">LinkedIn</a>
-        <a href="">Contact</a>
-    </div>
+    <footer>
+        <h2>Created by Christine Luu</h2>
+    </footer>
 </body>
 
 </html>

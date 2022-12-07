@@ -59,7 +59,7 @@ export default class Game{
     }
 
     startLightningLoop(){
-       setInterval(this.runLightningAnimations.bind(this), 4000);
+       setInterval(this.runLightningAnimations.bind(this), 6000);
     }
 
     runLightningAnimations(){

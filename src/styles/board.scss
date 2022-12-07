@@ -8,6 +8,7 @@
     align-content: center;
     justify-content: center; 
     margin: auto;
+    margin-bottom: 40px;
 }
 
 .background {
@@ -41,11 +42,11 @@
 }
 
 .lightningAnimationForScreen {
-    animation: updateOpacityForScreen 1s ease-in-out;
+    animation: updateOpacityForScreen 2s ease-in-out;
 }
 
 .lightningAnimationForBackground {
-    animation: updateOpacityForBackground 1s ease-in-out
+    animation: updateOpacityForBackground 2s ease-in-out
 }
     
 #candle-canvas {
@@ -78,26 +79,30 @@
     }
 
     10% {
-        opacity: .5;
+        opacity: 0;
     }
 
     20% {
-        opacity: .3;
+        opacity: 0;
     }
 
     30% {
-        opacity: .1;
+        opacity: 0;
     }
 
     40% {
-        opacity: .3;
+        opacity: 0;
     }
 
     50% {
-        opacity: .5;
+        opacity: 0;
     }
 
     60% {
+        opacity: 0;
+    }
+
+    70% {
         opacity: .7;
     }
 
@@ -135,6 +140,10 @@
         opacity: .7;
     }
 
+    70% {
+        opacity: 1;
+    }
+
     100% {
         opacity: 1;
     }
@@ -149,12 +158,23 @@
     left: 30px;
 }
 
+header {
+    background-color: #c2814b;
+    border: 2px solid #7a4420;
+    border-radius:  0 0 8px 8px;
+    box-shadow: 0 4px 0 #7a4420;
+    margin-bottom: 60px;
+    max-width: 1000px;
+    margin: auto;
+
+}
+
 h1 {
-    font-family: 'Nerko One', cursive;
+    font-family: "Nerko One", cursive;
     font-size: 50px;
-    display: flex;
-    align-content: center;
-    justify-content: center;
+    color: #000000;
+    text-align: center;
+    text-shadow:0 1px 0 #fff;
 }
 
 h2 {
@@ -164,4 +184,35 @@ h2 {
     align-content: center;
     justify-content: center;
 
+}
+nav {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    align-items: center;
+}
+nav a {
+    display: flex;
+    font-size: 28px;
+    margin: 0 15px;
+    justify-content: center;
+    color: #7a4420
+}
+nav a:hover {
+    color: #c2814b;
+}
+
+html {
+    background-image: url("/assets/htmlBackground.jpeg");
+    background-size: contain;
+
+}
+
+footer {
+    background-color: #c2814b;
+    border: 2px solid #7a4420;
+    border-radius:  8px 8px 0 0;
+    box-shadow: 0 -4px 0 #7a4420;
+    max-width: 1000px;
+    margin: auto;
 }
