@@ -12,6 +12,7 @@ export default class InputHandler {
             && this.keys.indexOf(e.code) === -1){
                 this.keys.push(e.code);
             }
+            e.preventDefault();
         });
 
         window.addEventListener('keyup', e => {
@@ -22,6 +23,7 @@ export default class InputHandler {
                 e.code === "Space") {
                 this.keys.splice(this.keys.indexOf(e.code), 1);
             }
+            e.preventDefault();
         })
     }
 }

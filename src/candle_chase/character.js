@@ -19,9 +19,14 @@ export default class Character{
         this.lastMovingUp = false
     }  
 
-    update(input){
+    update(input, isDying){
+        if(isDying){
+            return;
+        }
         let xSpeed = 0;
         let ySpeed = 0;
+
+        //horizontal movement
 
         if(input.includes('ArrowRight')) {
             this.lastMovingLeft = false
@@ -62,6 +67,7 @@ export default class Character{
                 this.frame > 6 ? this.frame = 0 : this.frame++;
             }
         }
+
 
         this.desiredX = this.x + xSpeed;
         this.desiredY = this.y + ySpeed;  

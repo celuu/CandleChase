@@ -19,7 +19,7 @@ export default class Game{
         this.enemy = new Enemy(this);
         this.timer = 0;
         this.collidedTimer = 0;
-        this.dyingFrame = 1;
+        this.dyingFrame = 0;
         this.spriteWidth = 129;
         this.spriteHeight = 128;
         this.startTimer();
@@ -39,9 +39,13 @@ export default class Game{
 
     update(){
         if (this.isOver) return;
-        this.player.update(this.input.keys);
         this.enemy.update();
+        let wasCollided = this.collided;
         this.detectEnemyCollisions();
+        if (wasCollided === false && this.collided === true && this.isDying === false) {
+            this.isDying = true;
+        }
+        this.player.update(this.input.keys, this.isDying);
         this.drawCharacter();
         this.board.update(this.player, this.input.keys, this.candleCtx);
         this.checkGameStatus();
@@ -52,19 +56,20 @@ export default class Game{
         this.candleCtx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
         this.screenCtx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
         this.board.draw(this.player);
-        this.player.draw(this.candleCtx);
-        this.enemy.draw(this.candleCtx);  
-        this.drawTimer();
         if (this.isDying) { 
             let playerImage = new Image();
             playerImage.src = './assets/spritesheet.png';
-            this.candleCtx.drawImage(playerImage, this.dyingFrame * this.spriteWidth, this.spriteHeight, this.spriteWidth, this.spriteHeight, this.player.x, this.player.y, this.player.width, this.player.height)
-            if (this.dyingFrame < 9) this.dyingFrame++;
+            this.candleCtx.drawImage(playerImage, Math.min(this.dyingFrame, 9) * this.spriteWidth, this.spriteHeight, this.spriteWidth, this.spriteHeight, this.player.x, this.player.y, this.player.width, this.player.height)
+            if (this.dyingFrame < 200) this.dyingFrame++;
             else {
                 this.isDying = false;
-                this.dyingFrame = 1;
+                this.dyingFrame = 0;
             }
+        } else {
+            this.player.draw(this.candleCtx);
         }
+        this.enemy.draw(this.candleCtx);  
+        this.drawTimer();
     }
 
     startTimer(){
@@ -79,7 +84,7 @@ export default class Game{
     }
 
     startLightningLoop(){
-        this.lightningLoopTimer = setInterval(this.runLightningAnimations.bind(this), 6000);
+        this.lightningLoopTimer = setInterval(this.runLightningAnimations.bind(this), 8000);
     }
 
     runLightningAnimations(){
@@ -112,7 +117,6 @@ export default class Game{
     }
 
     gameWon(){
-        this.music.pause();
         this.audioElement.pause()
         clearInterval(this.timer);
         clearInterval(this.lightningLoopTimer);
@@ -122,7 +126,6 @@ export default class Game{
     }
 
     gameOver(){
-        this.music.pause();
         this.audioElement.pause();
         clearInterval(this.timer);
         clearInterval(this.lightningLoopTimer);
@@ -139,9 +142,6 @@ export default class Game{
 
         this.isColliding(playerX, playerY, this.player.width, this.player.height,
             batX, batY, this.enemy.width, this.enemy.height)
-        if (this.collided === true && this.isDying === false){   
-            this.isDying = true; 
-        }
     }
 
     drawTimer(){
