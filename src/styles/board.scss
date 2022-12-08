@@ -302,7 +302,7 @@ nav a:hover {
 
 nav button{
     display: flex;
-    // margin: 0 20px;
+    font-size: 28px;
     justify-content: center;
     color: #7a4420
 }
@@ -311,6 +311,7 @@ nav button{
 #muteButton {
     background: none;
     border: none;
+    font-size: 28px;
     user-select: none;
     cursor: pointer;
     margin-right: 15px;
@@ -319,6 +320,7 @@ nav button{
 #unmuteButton {
     background: none;
     border: none;
+    font-size: 28px;
     user-select: none;
     cursor: pointer;
     margin-right: 15px;
