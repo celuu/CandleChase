@@ -13,7 +13,6 @@ window.addEventListener('keydown', e =>{
             startGame.classList.add("hidden");
             animate();
         } else if(game.isOver) {
-
             game = new Game(candleCanvas, screenCanvas);
             let endGame = document.getElementById("end_game_screen");
             endGame.classList.add("hidden");
@@ -22,6 +21,7 @@ window.addEventListener('keydown', e =>{
         }       
     }
 })  
+
 let unmuteButton = document.getElementById("unmuteButton");
 let muteButton = document.getElementById("muteButton");
 unmuteButton.classList.add("hidden");
