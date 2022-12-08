@@ -29,7 +29,7 @@ export default class Game{
         this.isOver = false
         this.lightningLoopTimer = 0;
         this.music = document.createElement("audio");
-        this.music.src = "assets/background_audio.mp3";
+        this.music.src = "./images/background_audio.mp3";
         this.music.volume = 0.1;
         this.music.play();
         this.userWon = false;
@@ -58,7 +58,7 @@ export default class Game{
         this.board.draw(this.player);
         if (this.isDying) { 
             let playerImage = new Image();
-            playerImage.src = 'assets/spritesheet.png';
+            playerImage.src = './images/spritesheet.png';
             this.candleCtx.drawImage(playerImage, Math.min(this.dyingFrame, 9) * this.spriteWidth, this.spriteHeight, this.spriteWidth, this.spriteHeight, this.player.x, this.player.y, this.player.width, this.player.height)
             if (this.dyingFrame < 200) this.dyingFrame++;
             else {

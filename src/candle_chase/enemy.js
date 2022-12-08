@@ -29,7 +29,7 @@ export default class Enemy {
     
     draw(ctx) {
         let playerImage = new Image();
-        playerImage.src = 'assets/Bat_Sprite_Sheet.png';
+        playerImage.src = './images/Bat_Sprite_Sheet.png';
         ctx.drawImage(playerImage, this.frame * this.spriteWidth, this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height);
     }
 

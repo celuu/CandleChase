@@ -81,7 +81,7 @@ export default class Character{
 
     draw(ctx){
         let playerImage = new Image();
-        playerImage.src = 'assets/spritesheet.png';
+        playerImage.src = './images/spritesheet.png';
         ctx.drawImage(playerImage, this.frame * this.spriteWidth, this.spriteHeight * 2.03, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
     }
 

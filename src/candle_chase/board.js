@@ -185,7 +185,7 @@ export default class Board{
                 let candle = this.candles[i];
                 if(candle.isLit){
                     let litCandle = new Image();
-                    litCandle.src = 'assets/lit-candles.png';
+                    litCandle.src = './images/lit-candles.png';
                     this.candleCtx.drawImage(litCandle, candle.x, candle.y, this.candleWidth, this.candleHeight);
                 }
                 this.candleCtx.drawImage(this.candleImage, candle.x, candle.y, this.candleWidth, this.candleHeight);
@@ -194,7 +194,7 @@ export default class Board{
         }
 
         let candleImage = new Image();
-        candleImage.src = 'assets/candles.png';
+        candleImage.src = './images/candles.png';
         
         candleImage.onload = () => {
             this.candleImage = candleImage
