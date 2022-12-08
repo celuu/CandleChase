@@ -38,7 +38,7 @@ export default class Board{
                 let a = character.x  - candle.x ;
                 let b = character.y  - candle.y;
                 let distanceBetween = Math.sqrt(a * a + b * b);
-                if(distanceBetween < 50){
+                if(distanceBetween < 100){
                     candle.isLit = true;
                 }
                 allLit = allLit && candle.isLit
