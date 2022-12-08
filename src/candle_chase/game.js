@@ -58,7 +58,7 @@ export default class Game{
         if (this.isDying) { 
             let playerImage = new Image();
             playerImage.src = './assets/spritesheet.png';
-            this.candleCtx.drawImage(playerImage, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, playerX, playerY, this.player.width, this.player.height)
+            this.candleCtx.drawImage(playerImage, this.dyingFrame * this.spriteWidth, this.spriteHeight, this.spriteWidth, this.spriteHeight, this.player.x, this.player.y, this.player.width, this.player.height)
             if (this.dyingFrame < 9) this.dyingFrame++;
             else {
                 this.isDying = false;
@@ -132,7 +132,6 @@ export default class Game{
         let unhide = document.getElementById("end_game_screen");
         unhide.classList.remove("hidden");
     }
-    
 
     detectEnemyCollisions() {
         let batX = this.enemy.x;
@@ -154,19 +153,6 @@ export default class Game{
         this.candleCtx.fillText(`Time Left: ${this.secondsRemaining} `, 20, 75);
     }
 
-    // drawMuteButton() {
-    //     let muteButton = document.getElementById("mute");
-
-    //     this.candleCtx.font = "40px Nerko One";
-    //     this.candleCtx.fillStyle = "#FFFFFF";
-    //     this.candleCtx.fillText("MUTE", 900, 75);
-    // }
-
-    
-
-
-
-
     isColliding(area1x, area1y, area1width, area1height, area2x, area2y, area2width, area2height){
         if (area1x > area2x + area2width ||
             area1x + area1width < area2x ||
@@ -176,7 +162,6 @@ export default class Game{
             } else {
                 this.collided = true;
         }
-
     }
 
     drawCharacter(){

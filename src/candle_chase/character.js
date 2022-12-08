@@ -68,33 +68,16 @@ export default class Character{
     
         if (this.desiredX <= 0) this.desiredX = this.x;
         if (this.desiredX >= this.game.dimensions.width - this.width) this.desiredX = this.x;
-        if (this.desiredY <= 0) this.desiredY = this.y;
+        if (this.desiredY <= 100) this.desiredY = this.y;
         if (this.desiredY >= this.game.dimensions.height - this.height) this.desiredY = this.y;
-        
     }
 
 
     draw(ctx){
-
-        // window.addEventListener('keydown', e => {
-        //     if (e.code === 'Space') {
-        //         let lightCandle = new Image();
-        //         lightCandle.src = './assets/spritesheet.png';
-        //         ctx.drawImage(lightCandle, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
-        //     }
-        // })
-
-
-
         let playerImage = new Image();
         playerImage.src = './assets/spritesheet.png';
         ctx.drawImage(playerImage, this.frame * this.spriteWidth, this.spriteHeight * 2.03, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
     }
-
-
-
-
-
 
 }
 

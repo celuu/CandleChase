@@ -18,8 +18,8 @@ window.addEventListener('keydown', e =>{
             game = new Game(candleCanvas, screenCanvas);
             let endGame = document.getElementById("end_game_screen");
             endGame.classList.add("hidden");
-            let startGame = document.getElementById("start_game_screen");
-            startGame.classList.add("hidden");
+            let winnerGame = document.getElementById("winner_screen");
+            winnerGame.classList.add("hidden");
         }       
     }
 })  
