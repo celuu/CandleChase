@@ -72,7 +72,6 @@ export default class Game{
     }
 
     decrementSecondsRemaining() {
-        console.log("sec")
         this.secondsRemaining--;
         if (this.secondsRemaining <= 0) {
             this.gameOver();
@@ -84,7 +83,6 @@ export default class Game{
     }
 
     runLightningAnimations(){
-        console.log("running animation")
         this.startLightning();
         setTimeout(this.stopLightning, 3000);
     }
@@ -141,7 +139,6 @@ export default class Game{
 
         this.isColliding(playerX, playerY, this.player.width, this.player.height,
             batX, batY, this.enemy.width, this.enemy.height)
-            console.log(this.collided)
         if (this.collided === true && this.isDying === false){   
             this.isDying = true; 
         }
