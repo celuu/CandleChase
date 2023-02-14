@@ -1,7 +1,7 @@
 
 
 export default class Enemy {
-    constructor(game){
+    constructor(game, x, y){
         this.game = game
         this.width = 75;
         this.height = 75;
